@@ -24,6 +24,16 @@ npm run e2e
 npm test
 ```
 
+### Updated 17 March 2017
+- Add Vuex as the main store
+- Use 'vue-i18n' as main localization
+- Add localization for datetime using 'moment' library
+- Shift router logic to main.js
+- Shift component states to vuex (loader and notification)
+- Authenticated user state is now stored in vuex
+- Remove bus from main.js, instead of passing each props individually and use an event bus to update state, states are stored in vuex
+- Update all npm dependencies (including Vue)
+
 ### Added new dependencies
 - Sass Loader/Node sass for using lang='sass' in styles
 - Added vue router for client side routing management

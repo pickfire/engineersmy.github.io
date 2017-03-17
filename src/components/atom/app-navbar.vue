@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { routes } from '../../router/router'
+import { routes } from '../../router/index'
 const filteredRoutes = routes.filter((d) => {
   return d.name !== 'index'
 })

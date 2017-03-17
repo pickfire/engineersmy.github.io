@@ -1,28 +1,28 @@
 <template>
   <footer class='app-footer'>
-  Language: 
-  <select v-on:change='selectLanguage'>
-    <option class='footer-item' v-for='language in languages' :value='language.value'>{{language.label}}</option>
-  </select>
+    Language:
+    <select v-on:change='selectLanguage'>
+      <option
+        class='footer-item'
+        v-for='language in languages'
+        :value='language.id'
+      >{{language.label}}</option>
+    </select>
+    <span>{{locale}}</span>
   </footer>
 </template>
 
 <script>
-import { languages } from '../../locale/locale'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'app-footer',
-  props: ['bus'],
-  data () {
-    return {
-      languages
-    }
+  computed: {
+    ...mapGetters('locale', ['locale', 'languages'])
   },
   methods: {
+    ...mapActions('locale', ['setLocale']),
     selectLanguage (evt) {
-      this.bus.$emit('locale', {
-        action: 'set',
-        lng: evt.currentTarget.value
-      })
+      this.setLocale(evt.currentTarget.value)
     }
   }
 }

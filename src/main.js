@@ -1,91 +1,62 @@
-/*
- * External dependencies
-**/
+//
+// External dependencies
+//
 import Vue from 'vue'
+import Vuex from 'vuex'
+import VueI18n from 'vue-i18n'
 import VueRouter from 'vue-router'
 import FastClick from 'fastclick'
-/*
- * Internal dependencies
-**/
+import i18n from './locale/index'
+import router from './router/index'
+//
+// Internal dependencies
+// * All the internal dependencies
+//
 import App from './App'
-import Router from './router/router'
-import Locale from './locale/locale'
+import Store from './vuex/index'
 /* eslint-disable no-new */
-let user = null
-const bus = new Vue()
-const router = Router({
-  bus,
-  user
-})
 /* Middlewares */
+Vue.use(VueI18n)
 Vue.use(VueRouter)
+Vue.use(Vuex)
+
 FastClick.attach(document.body)
+
+const store = new Vuex.Store(Store)
+
+router.beforeEach((to, from, next) => {
+  console.log('beforeEach', store.state.user.data.name)
+  // SET_LANGUAGE
+  // * Set the language on the url
+  // * Example: www.domain.com/en/home
+  // Vue.config.lang = to.params.lang
+  // store.loader.dispatch('show')
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // This route requires auth, check if the user is logged in
+    if (!store.state.user.data.name) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+router.afterEach(() => {
+  // this.isLoading = false
+  // store.loader.dispatch('hide')
+})
 
 new Vue({
   router,
-  // el: '#app',
-  template: '<App :bus="bus" :locale="locale" :notifications="notifications" :isLoading="isLoading"/>',
-  components: { App },
-  beforeCreate () {
-    /*
-     * Initialize all the necessary variables
-    **/
-    this.bus = bus
-    this.locale = null
-    this.user = user
-    this.notifications = []
-    this.isLoading = false
-  },
-  beforeMount () {
-    /*
-     * Attach listeners
-    **/
-    this.bus.$on('router', (payload) => {
-      if (payload.action === 'beforeEach') {
-        this.isLoading = true
-      } else if (payload.action === 'afterEach') {
-        setTimeout(() => {
-          this.isLoading = false
-        }, 350)
-      }
-    })
-    this.bus.$on('locale', (res) => {
-      switch (res.action) {
-        case 'init':
-        case 'change': {
-          this.locale = res.template
-        }
-          break
-      }
-    })
-    this.bus.$on('notification', (payload) => {
-      if (payload.action === 'show') {
-        this.notifications.push({
-          title: `${payload.title}-${this.notifications.length}`,
-          description: `${payload.description}-${this.notifications.length}`
-        })
-        /*
-         * Only show maximum four notifications
-        **/
-        if (this.notifications.length > 4) {
-          this.notifications.shift()
-        }
-      } else {
-        this.notifications.splice(payload.index, 1)
-      }
-    })
-    Locale({ bus })
-  },
-  mounted () {
-  },
-  data () {
-    return {
-      bus: this.bus,
-      locale: this.locale,
-      notifications: this.notifications,
-      isLoading: this.isLoading
-    }
-  }
+  store,
+  i18n: new VueI18n(i18n),
+  template: '<App/>',
+  components: { App }
 }).$mount('#app')
 
 // // Handle unloading the website

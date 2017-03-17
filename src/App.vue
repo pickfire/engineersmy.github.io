@@ -3,9 +3,10 @@
     <!--Wrapper for sticky footer-->
     <div id='sticky-footer'>
       <!--The app loading-->
-      <app-loading v-if='isLoading'></app-loading>
+      <app-loading></app-loading>
+
       <!--The app notification-->
-      <app-notification v-on:mousenter='onMouseEnterNotification' v-on:mouseleave='onMouseLeaveNotification' v-on:press='onClickNotification' :collection='notifications'></app-notification>
+      <app-notification></app-notification>
 
       <!--The app header-->
       <app-header>
@@ -18,13 +19,15 @@
       <!--This is where the content of the page goes to-->
       <app-body>
         <!--The router view will render the page component based on the path-->
-        <transition :name='transitionName' :mode='transitionMode'>
-          <router-view :bus='bus' :locale='locale'></router-view>
+        <transition
+          :name='transitionName'
+          :mode='transitionMode'>
+          <router-view></router-view>
         </transition>
       </app-body>
     </div>
     <!--Sticky footer-->
-    <app-footer :bus='bus'></app-footer>
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -38,7 +41,6 @@ import AppLoading from './components/atom/app-loading'
 
 export default {
   name: 'app',
-  props: ['bus', 'locale', 'notifications', 'isLoading'],
   components: {
     AppHeader,
     AppNavbar,
@@ -60,33 +62,6 @@ export default {
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length
       this.transitionName = toDepth < fromDepth ? 'slideRight' : 'slideLeft'
-    }
-  },
-  methods: {
-    onMouseEnterNotification (index) {
-      if (this.toastTimeout) {
-        window.clearTimeout(this.toastTimeout)
-      }
-    },
-    onMouseLeaveNotification (index) {
-      if (this.toastTimeout) {
-        window.clearTimeout(this.toastTimeout)
-      }
-      this.toastTimeout = window.setTimeout(() => {
-        this.bus.$emit('notification', {
-          index,
-          action: 'hide'
-        })
-      }, 4000)
-    },
-    onClickNotification (index) {
-      if (this.toastTimeout) {
-        window.clearTimeout(this.toastTimeout)
-      }
-      this.bus.$emit('notification', {
-        index,
-        action: 'hide'
-      })
     }
   }
 }

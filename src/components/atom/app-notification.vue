@@ -1,29 +1,47 @@
 <template>
   <div>
-    <div v-for='(model, index) in collection'>
-      <div class='notification' v-on:mouseenter='onMouseEnter(index)' v-on:mouseleave='onMouseLeave(index)' v-on:click='onClick(index)' :style='{top: 10 + (index * 70) + "px"}'>
-        <div class='notification-title h4'>{{model.title}} </div>
-        <div class='notification-description h5'>{{model.description}}</div>
+    <transition-group name='app-notification' tag='div'>
+      <div
+        v-for='(model, index) in data'
+        class='notification'
+        v-on:mouseenter='pause(model.id)'
+        v-on:mouseleave='start(model.id)'
+        v-on:click='remove(model.id)'
+        :style='{top: 10 + (index * 70) + "px"}'
+        :key='model.id'
+      > 
+        <div class='title text-bold h4'><i class='fa fa-fw fa-check-circle-o'></i> {{model.title}} </div>
+        <div class='description h5' v-html='model.description'></div>
       </div>
-    </div>
+      
+    </transition-group>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'app-notification',
   props: ['collection'],
-  components: { },
+  beforeCreate () {
+    this.timer = {}
+  },
+  beforeMount () {
+    this.data.map((model) => {
+      this.start(model.id)
+    })
+  },
+  computed: {
+    ...mapGetters('notification', [
+      'data'
+    ])
+  },
   methods: {
-    onMouseEnter (index) {
-      this.$emit('mouseenter', index)
-    },
-    onMouseLeave (index) {
-      this.$emit('mouseleave', index)
-    },
-    onClick (index) {
-      this.$emit('press', index)
-    }
+    ...mapActions('notification', [
+      'remove',
+      'start',
+      'pause'
+    ])
   }
 }
 </script>
@@ -41,19 +59,36 @@ export default {
   color: $cod-gray;
   width: 300px;
   border-radius: 7px;
-  padding: 10px 20px;
-  transform: translateX(100%);
-  animation: toast .174s ease-out forwards;
+  padding: 10px;
   cursor: default;
   z-index: 2500;
-  text-align: left;
 }
 .notification:hover {
   background: $silver;
 }
-.notification-title {
-  font-weight: bold;
+
+.app-notification-enter {
+  opacity: 0;
+  transform: translateX(100%) scale(.95);
 }
+.app-notification-enter-to {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+.app-notification-enter-active {
+  transition: .174s all ease-in;
+}
+.app-notification-leave {
+}
+.app-notification-leave-to {
+  opacity: 0;
+  transform: translateX(100%); 
+}
+.app-notification-leave-active {
+  transition: .174s all ease-out;
+}
+
+
 @keyframes toast {
   0% {
     transform: translateX(100%) scale(0.95);
