@@ -1,7 +1,9 @@
 <template>
   <header class='app-header'>
-    <router-link to='/' class='header-icon'><slot name='icon'></slot></router-link> 
-    <h2 class='header-title'>Application Name</h2>
+    <router-link to='/' class='header-icon'>
+      <slot name='icon'></slot>
+    </router-link> 
+    <h2 class='header-title'>App Name</h2>
   </header>
 </template>
 
@@ -15,10 +17,13 @@ export default {
 <style lang='scss' scoped>
 @import '../../styles/colors.scss';
 header {
-  background: black;
-  color: white;
+  background: #d0d0d0;
+  color: #101010;
   height: 60px;
   line-height: 60px;
+}
+.header-icon {
+  display: none;
 }
 .header-icon,
 .header-title {

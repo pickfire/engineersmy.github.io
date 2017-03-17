@@ -1,6 +1,6 @@
 <template>
   <footer class='app-footer'>
-    Language:
+    <span>Language:</span>
     <select v-on:change='selectLanguage'>
       <option
         class='footer-item'
@@ -8,7 +8,6 @@
         :value='language.id'
       >{{language.label}}</option>
     </select>
-    <span>{{locale}}</span>
   </footer>
 </template>
 
@@ -34,7 +33,11 @@ export default {
 @import '../../styles/colors.scss';
 footer {
   height: 100px;
-  background: silver;
+  background: #202020;
+  color: white;
+  line-height: 50px;
+  text-align: right;
+  width: 100%;
 }
 .footer-item {
   display: inline-block;

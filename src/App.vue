@@ -10,7 +10,7 @@
 
       <!--The app header-->
       <app-header>
-        <img slot='icon' src="./assets/logo.png" width='30px'>
+<!--         <img slot='icon' src="./assets/logo.png" width='30px'> -->
       </app-header>
 
       <!--Main app navigation-->
@@ -83,13 +83,12 @@ body.disable-hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  text-align: center;
 }
 #sticky-footer {
   /*
    * For sticky footer, offset the footer height
   **/
-  margin-bottom: -100px;
+  margin-bottom: -50px;
   height: 100%;
   min-height: 100vh;
 }
@@ -99,7 +98,7 @@ body.disable-hover {
   /*
    * Whereby the 100px is the offsetted height for the footer
   **/
-  height: 100px;
+  height: 50px;
 }
 
 </style>

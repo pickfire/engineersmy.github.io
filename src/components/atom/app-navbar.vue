@@ -26,11 +26,13 @@ export default {
   display: block;
   height: 30px;
   line-height: 30px;
-  background: silver;
+  background: #F4F4F4;
 }
 .nav-item {
   text-transform: capitalize;
   display: inline-block;
   margin: 0 10px;
+  text-decoration: none;
+  color: #202020;
 }
 </style>
