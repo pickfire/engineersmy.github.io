@@ -1,6 +1,11 @@
 <template>
   <div class='app-navbar'>
-    <router-link class='nav-item' v-for='route in routes' :to='route.path'>{{ route.name }}</router-link>
+    <router-link
+      class='nav-item' 
+      v-for='route in routes' 
+      :to='route.path'
+      :class="{'is-selected': $route.name === route.name }"
+    >{{ route.name }} </router-link>
   </div>
 </template>
 
@@ -17,22 +22,29 @@ export default {
     }
   }
 }
+// https://engineersmy.herokuapp.com/
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
-@import '../../styles/colors.scss';
+@import '../../styles/theme.scss';
 .app-navbar {
   display: block;
-  height: 30px;
-  line-height: 30px;
-  background: #F4F4F4;
+  line-height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  // background: $wild-sand;
+  text-align: center;
+  padding: $block-10 0;
 }
 .nav-item {
   text-transform: capitalize;
   display: inline-block;
-  margin: 0 10px;
   text-decoration: none;
   color: #202020;
+  padding: 0 $block-20;
+}
+.nav-item.is-selected {
+  border-bottom: 4px solid $anakiwa;
 }
 </style>

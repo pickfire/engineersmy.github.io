@@ -13,26 +13,34 @@
 <!--         <img slot='icon' src="./assets/logo.png" width='30px'> -->
       </app-header>
 
-      <!--Main app navigation-->
-      <app-navbar></app-navbar>
+      <app-jumbotron></app-jumbotron>
 
+      <!--Main app navigation-->
+      <!-- <app-navbar></app-navbar> -->
+
+      <br>
+
+      <br>
+      <div class='announcement'><b>Announcement:</b> Our website is still work in progress. If you wish to contribute/suggest ideas that can help us enhance our website, visit our <a href='https://github.com/engineersmy'>Github</a> and start contributing.</div>
       <!--This is where the content of the page goes to-->
-      <app-body>
-        <!--The router view will render the page component based on the path-->
+      <!--The router view will render the page component based on the path-->
+<!--       <app-body>
+        
         <transition
           :name='transitionName'
           :mode='transitionMode'>
           <router-view></router-view>
         </transition>
-      </app-body>
+      </app-body> -->
     </div>
     <!--Sticky footer-->
-    <app-footer></app-footer>
+    <!-- <app-footer></app-footer> -->
   </div>
 </template>
 
 <script>
 import AppHeader from './components/atom/app-header'
+import AppJumbotron from './components/atom/app-jumbotron'
 import AppNavbar from './components/atom/app-navbar'
 import AppBody from './components/atom/app-body'
 import AppFooter from './components/atom/app-footer'
@@ -46,6 +54,7 @@ export default {
     AppNavbar,
     AppBody,
     AppFooter,
+    AppJumbotron,
     AppNotification,
     AppLoading
   },
@@ -79,10 +88,10 @@ body.disable-hover {
   pointer-events: none;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Lucida Grande', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: $tundora;
 }
 #sticky-footer {
   /*
@@ -99,6 +108,15 @@ body.disable-hover {
    * Whereby the 100px is the offsetted height for the footer
   **/
   height: 50px;
+}
+
+.announcement {
+  b {
+    font-weight: bold;
+  }
+  max-width: 480px;
+  margin: auto;
+  line-height: 1.25em;
 }
 
 </style>

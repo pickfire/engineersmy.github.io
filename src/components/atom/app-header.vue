@@ -3,7 +3,7 @@
     <router-link to='/' class='header-icon'>
       <slot name='icon'></slot>
     </router-link> 
-    <h2 class='header-title'>App Name</h2>
+    <h2 class='header-title'>Engineers.my</h2>
   </header>
 </template>
 
@@ -15,12 +15,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
-@import '../../styles/colors.scss';
+@import '../../styles/theme.scss';
+
 header {
-  background: #d0d0d0;
-  color: #101010;
+  background: linear-gradient(30deg, $dodger-blue, pink);
+  color: white;
   height: 60px;
   line-height: 60px;
+  padding: 0 $block-20;
 }
 .header-icon {
   display: none;
