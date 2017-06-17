@@ -2,8 +2,8 @@ import VueRouter from 'vue-router'
 /*
  * All the individual pages, arranged A-Z
 **/
-import PageAdmin from '../components/page/admin'
-import PageContact from '../components/page/contact'
+import PageData from '../components/page/data'
+// import PageContact from '../components/page/contact'
 import PageHome from '../components/page/home'
 
 /*
@@ -20,23 +20,23 @@ export const routes = [
     }
   },
   {
-    name: 'admin',
-    path: '/admin',
-    component: PageAdmin,
-    meta: {
-      requiresAuth: false
-    }
-  },
-  {
-    name: 'contact',
-    path: '/contact',
-    component: PageContact
-  },
-  {
     name: 'home',
     path: '/home',
     component: PageHome
+  },
+  {
+    name: 'data',
+    path: '/data',
+    component: PageData,
+    meta: {
+      requiresAuth: false
+    }
   }
+  // {
+  //   name: 'contact',
+  //   path: '/contact',
+  //   component: PageContact
+  // }
 ]
 
 export default new VueRouter({

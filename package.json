@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "d3": "^4.9.1",
     "fastclick": "^1.0.6",
     "moment": "^2.17.1",
     "node-sass": "^3.13.1",

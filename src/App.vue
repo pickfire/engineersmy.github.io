@@ -16,22 +16,18 @@
       <app-jumbotron></app-jumbotron>
 
       <!--Main app navigation-->
-      <!-- <app-navbar></app-navbar> -->
-
-      <br>
-
-      <br>
-      <div class='announcement'><b>Announcement:</b> Our website is still work in progress. If you wish to contribute/suggest ideas that can help us enhance our website, visit our <a href='https://github.com/engineersmy'>Github</a> and start contributing.</div>
+      <app-navbar></app-navbar>
+      
       <!--This is where the content of the page goes to-->
       <!--The router view will render the page component based on the path-->
-<!--       <app-body>
+      <app-body>
         
         <transition
           :name='transitionName'
           :mode='transitionMode'>
           <router-view></router-view>
         </transition>
-      </app-body> -->
+      </app-body>
     </div>
     <!--Sticky footer-->
     <!-- <app-footer></app-footer> -->
@@ -110,13 +106,5 @@ body.disable-hover {
   height: 50px;
 }
 
-.announcement {
-  b {
-    font-weight: bold;
-  }
-  max-width: 480px;
-  margin: auto;
-  line-height: 1.25em;
-}
 
 </style>
