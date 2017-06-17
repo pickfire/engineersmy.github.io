@@ -9,7 +9,7 @@
       
       <br>
 
-      <h4 class="chart-subheading">Shows the frequency of the languages used based on data from Github Users in Malaysia (June 2017).</h4>
+      <h4 class="chart-subheading">Shows the frequency of the languages used based on data from Github Users in Malaysia (from 2008 until June 2017).</h4>
 
       <br>
       <br>

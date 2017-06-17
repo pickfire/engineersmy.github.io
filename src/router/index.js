@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
  * All the individual pages, arranged A-Z
 **/
 import PageData from '../components/page/data'
-// import PageContact from '../components/page/contact'
+import PageEvent from '../components/page/event'
 import PageHome from '../components/page/home'
 
 /*
@@ -31,12 +31,12 @@ export const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+  {
+    name: 'events',
+    path: '/events',
+    component: PageEvent
   }
-  // {
-  //   name: 'contact',
-  //   path: '/contact',
-  //   component: PageContact
-  // }
 ]
 
 export default new VueRouter({
