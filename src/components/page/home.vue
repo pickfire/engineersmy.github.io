@@ -14,7 +14,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
-
 .announcement {
   b {
     font-weight: bold;

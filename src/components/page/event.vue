@@ -74,7 +74,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/theme.scss';
 .page-event {
-
+  padding: 0 $block-20;
 }
 .col-12 {
   display: block;

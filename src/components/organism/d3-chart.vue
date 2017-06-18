@@ -5,6 +5,34 @@
     <!--Section: Abstract that explains that the page is about-->
     <div class="chart-info">
 
+      <h2 class="chart-heading">Github user density in Malaysia</h2>
+      
+      <br>
+
+      <h4 class="chart-subheading">Shows the number of users from Malaysia that joined Github (from 2008 until June 2017).</h4>
+
+      <br>
+      <br>
+
+      <h4 class="chart-heuristic-heading">The following criteria has to be met for the users to be included:</h4>
+
+      <br>
+
+      <ul class="chart-heuristic">
+        <li>has 'Malaysia' in the location</li>
+      </ul>
+    </div>
+
+    <break rows="3"></break>
+
+    <!--Section: Display the chart component-->
+    <div class="chart-user"></div>
+
+    <break rows="3"></break>
+
+    <!--Section: Abstract that explains that the page is about-->
+    <div class="chart-info">
+
       <h2 class="chart-heading">Top 20 Programming Languages used in Malaysia</h2>
       
       <br>
@@ -27,10 +55,10 @@
       </ul>
     </div>
 
-    <br>
+    <break rows="3"></break>
 
     <!--Section: Display the chart component-->
-    <div class='chart-svg' :class="namespace"></div>
+    <div class="chart-svg" :class="namespace"></div>
 
     <!--Add extra padding below for scrolling-->
     <break rows="10"></break>
@@ -39,7 +67,7 @@
 
 <script>
 import Break from '../atom/break.vue'
-import draw from '../../module/chart.js'
+import chart from '../../module/chart/index.js'
 export default {
   name: 'd3-chart',
   components: {
@@ -47,7 +75,8 @@ export default {
   },
   props: ['namespace'],
   mounted () {
-    draw(['.', this.namespace].join(''))
+    chart.language(['.', this.namespace].join(''))
+    chart.user('.chart-user')
   }
 }
 </script>

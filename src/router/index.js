@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import PageData from '../components/page/data'
 import PageEvent from '../components/page/event'
 import PageHome from '../components/page/home'
+import PageFeedback from '../components/page/feedback'
 
 /*
  * Export routes to be reused in the app-navbar, KISS
@@ -13,7 +14,7 @@ export const routes = [
   // Orders are alphebetical, A-Z
   {
     name: 'index',
-    path: '/',
+    path: '*',
     redirect: '/home',
     meta: {
       requiresAuth: false
@@ -36,6 +37,11 @@ export const routes = [
     name: 'events',
     path: '/events',
     component: PageEvent
+  },
+  {
+    name: 'feedback',
+    path: '/feedbacks',
+    component: PageFeedback
   }
 ]
 
