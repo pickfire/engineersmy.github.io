@@ -12,10 +12,26 @@
 
         <br>
 
-        <div 
-          class="event"
-          :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'v-for="event in section.events">
-          <span class="event-date"> {{parseDate(event.datetime)}} - </span><a class="event-link" :href="event.url">{{event.title}}</a>
+        <div v-for="(event, index) in section.events">
+          
+          <div v-if="checkArray(event)">
+            <div v-for="(e, i) in event">
+              <div class="event-type" v-if="i===0 && e.type.length > 0">{{e.type}}</div>
+              <div class="event"
+                :class='{"is-expired": checkExpiry(e.datetime), "is-today": checkToday(e.datetime)}'>
+                
+                <span class="event-date"> {{parseDate(e.datetime)}} - </span><a class="event-link" :href="e.url">{{e.title}}</a>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div 
+              class="event"
+              :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
+                <span class="event-date"> {{parseDate(event.datetime)}} - </span><a class="event-link" :href="event.url">{{event.title}}</a>
+              </div>
+          </div>
+    
         </div>
 
         <br>
@@ -57,14 +73,23 @@ export default {
       return moment(timestamp).format('Do')
     },
     checkExpiry (timestamp) {
+      if (!timestamp) {
+        return false
+      }
       const today = Date.now()
       const current = new Date(timestamp).getTime()
       return current < today
     },
     checkToday (timestamp) {
+      if (!timestamp) {
+        return false
+      }
       const today = new Date().setHours(0, 0, 0, 0)
       const current = new Date(timestamp).setHours(0, 0, 0, 0)
       return current === today
+    },
+    checkArray (array) {
+      return Array.isArray(array)
     }
   }
 }
@@ -87,6 +112,13 @@ export default {
 .event {
   color: $tundora;
   line-height: 1.25em;
+}
+.event-type {
+  font-weight: bold;
+  margin: $block-20 0 $block-10;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: $dove-gray;
 }
 .event.is-expired:before {
   content: 'Past';
