@@ -13,23 +13,10 @@
         <br>
 
         <div v-for="(event, index) in section.events">
-          
-          <div v-if="checkArray(event)">
-            <div v-for="(e, i) in event">
-              <div class="event-type" v-if="i===0 && e.type.length > 0">{{e.type}}</div>
-              <div class="event"
-                :class='{"is-expired": checkExpiry(e.datetime), "is-today": checkToday(e.datetime)}'>
-                
-                <span class="event-date"> {{parseDate(e.datetime)}} - </span><a class="event-link" :href="e.url">{{e.title}}</a>
-              </div>
-            </div>
-          </div>
-          <div v-else>
-            <div 
-              class="event"
-              :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
-                <span class="event-date"> {{parseDate(event.datetime)}} - </span><a class="event-link" :href="event.url">{{event.title}}</a>
-              </div>
+          <div 
+            class="event"
+            :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
+            <span class="event-date"> {{parseDate(event.datetime)}} - </span><a class="event-link" :href="event.url">{{event.title}}</a>
           </div>
     
         </div>
@@ -59,11 +46,17 @@ export default {
     }).then((data) => {
       const events = githubParser(data)
       this.sections = events.titles.map((title, index) => {
-        return {
-          title: title,
-          events: events.sections[index]
+        const availableEvents = events.sections[index].filter((e) => {
+          return !this.checkExpiry(e.datetime)
+        })
+        if (availableEvents.length) {
+          return {
+            title,
+            events: availableEvents
+          }
         }
-      })
+        return null
+      }).filter((x) => x)
     }).catch((error) => {
       console.log(error)
     })
