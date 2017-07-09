@@ -1,8 +1,18 @@
 <template>
-  <div class='app-jumbotron'>
+  <div class='app-jumbotron square-wrapper'>
+    <div 
+    v-for='square in squares'
+    class='square'
+    :style='{
+      left: square.left + "px",
+      top: square.top + "px",
+      background: square.background
+    }'
+  ></div>
     <div class='app-jumbotron-title'>
       <br>
         <div>
+
           <h1 class='app-jumbotron-heading'>Engineers.my</h1>
           
           <br>
@@ -32,7 +42,122 @@
 
 <script>
 export default {
-  name: 'app-jumbotron'
+  name: 'app-jumbotron',
+  beforeMount () {
+    this.start = null
+    this.primaryColor = this.primaryColor
+    this.secondaryColor = '#2761ef'
+    const width = (window.innerWidth - 40)
+    const height = (320 - 40)
+    this.squares = Array(20).fill({
+      left: (Math.floor(Math.random() * width / 40) * 40),
+      top: (Math.floor(Math.random() * height / 40) * 40),
+      background: this.primaryColor
+    })
+  },
+  data () {
+    return {
+      squares: []
+    }
+  },
+  mounted () {
+    console.log('mounted')
+    window.requestAnimationFrame(this.update)
+  },
+  methods: {
+    update (timestamp) {
+      if (!this.start) {
+        this.start = timestamp
+      }
+      const width = (window.innerWidth - 40)
+      const height = (320 - 40)
+
+      const progress = timestamp - this.start
+      if (progress < 2000) {
+        window.requestAnimationFrame(this.update)
+      }
+      // Run every 1 second
+      if (progress > 1000) {
+        this.squares = this.squares.map((square) => {
+          const moveX = Math.random() > 0.5
+          const moveY = !moveX
+          const movePositive = Math.random() > 0.5
+
+          if (moveX) {
+            if (movePositive) {
+              const newX = square.left + 40
+              if (newX > width) {
+                return {
+                  left: (Math.floor(Math.random() * width / 40) * 40),
+                  top: square.top,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+                // Randomize a new position
+              } else {
+                return {
+                  left: square.left + 40,
+                  top: square.top,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+              }
+            } else {
+              const newX = square.left - 40
+              if (newX < 0) {
+                return {
+                  left: (Math.floor(Math.random() * width / 40) * 40),
+                  top: square.top,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+                // Randomize a new position
+              } else {
+                return {
+                  left: square.left - 40,
+                  top: square.top,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+              }
+            }
+          }
+          if (moveY) {
+            if (movePositive) {
+              const newY = square.top + 40
+              if (newY > height) {
+                return {
+                  left: square.left,
+                  top: (Math.floor(Math.random() * height / 40) * 40),
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+                // Randomize a new position
+              } else {
+                return {
+                  left: square.left,
+                  top: square.top + 40,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+              }
+            } else {
+              const newY = square.top - 40
+              if (newY < 0) {
+                return {
+                  left: square.left,
+                  top: (Math.floor(Math.random() * height / 40) * 40),
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+                // Randomize a new position
+              } else {
+                return {
+                  left: square.left,
+                  top: square.top - 40,
+                  background: Math.random() < 0.5 ? this.primaryColor : this.secondaryColor
+                }
+              }
+            }
+          }
+        })
+        this.start = timestamp
+      }
+    }
+  }
 }
 </script>
 
@@ -51,6 +176,9 @@ export default {
   align-items: center;
   color: white;
   height: 320px;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
 }
 
 .app-jumbotron-heading {
@@ -81,5 +209,21 @@ export default {
 .button-slack {
   height: 20px;
   width: auto;
+}
+
+.square-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.square {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: .174s all cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: $dodger-blue;
 }
 </style>
