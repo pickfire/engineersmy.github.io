@@ -12,13 +12,18 @@
 
         <br>
 
-        <div v-for="(event, index) in section.events">
-          <div 
-            class="event"
-            :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
-            <span class="event-date"> {{parseDate(event.datetime)}} - </span><a class="event-link" :href="event.url">{{event.title}}</a>
+        <div v-for="(groups, index) in section.events"
+          class="event-group"
+          :class='{"is-today": checkToday(groups[0].datetime)}'>
+        
+          <div v-for="(event, i) in groups">
+            <div 
+              class="event"
+              :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
+              <span class="event-date"><b :style="{ 'visibility': i === 0 ? 'visible' : 'hidden' }">{{ parseDate(event.datetime) }}</b>&nbsp;</span><a class="event-link" :href="event.url">{{event.title}}</a>
+            </div>
           </div>
-    
+          
         </div>
 
         <br>
@@ -47,12 +52,23 @@ export default {
       const events = githubParser(data)
       this.sections = events.titles.map((title, index) => {
         const availableEvents = events.sections[index].filter((e) => {
-          return !this.checkExpiry(e.datetime)
+          return !this.checkExpiry(e.datetime) // && !this.checkToday(e.datetime)
         })
-        if (availableEvents.length) {
+
+        const eventsGroupedByDate = [...new Set(availableEvents.map((e) => e.datetime.getTime()))].reduce((arr, timestamp) => {
+          arr.push(availableEvents.filter((e) => {
+            return e.datetime.getTime() === timestamp
+          }))
+          return arr
+        }, [])
+        // const todayEvents = events.sections[index].filter((e) => {
+        //   return this.checkToday(e.datetime)
+        // })
+        if (eventsGroupedByDate.length) {
           return {
             title,
-            events: availableEvents
+            events: eventsGroupedByDate
+            // todayEvents: todayEvents
           }
         }
         return null
@@ -69,7 +85,7 @@ export default {
       if (!timestamp) {
         return false
       }
-      const today = Date.now()
+      const today = new Date().setHours(0, 0, 0, 0)
       const current = new Date(timestamp).getTime()
       return current < today
     },
@@ -102,9 +118,19 @@ export default {
 .section-title {
   font-weight: bold;
 }
+.event-link:before {
+  content: "-";
+  display: inline-block;
+  padding: 0 10px 0 0;
+  font-weight: bold;
+  color: $silver;
+}
 .event {
   color: $tundora;
-  line-height: 1.25em;
+  display: block;
+  line-height: 40px;
+  vertical-align: middle;
+  font-size: 14px;
 }
 .event-type {
   font-weight: bold;
@@ -113,28 +139,30 @@ export default {
   font-size: 12px;
   color: $dove-gray;
 }
-.event.is-expired:before {
-  content: 'Past';
-  color: white;
-  background: $coral-red;
-  font-size: 12px;
-  padding: 0 5px;
-  height: 16px;
-  line-height: 16px;
-  border-radius: 3px;
-  display: inline-block;
-}
-.event.is-today:before {
-  content: 'Today';
-  color: white;
-  background: $turquoise;
-  font-size: 12px;
-  padding: 0 5px;
-  height: 16px;
-  line-height: 16px;
-  border-radius: 3px;
-  display: inline-block;
-}
+
+
+// .event.is-expired:before {
+//   content: 'Past';
+//   color: white;
+//   background: $coral-red;
+//   font-size: 12px;
+//   padding: 0 5px;
+//   height: 16px;
+//   line-height: 30px;
+//   border-radius: 3px;
+//   display: inline-block;
+// }
+// .event.is-today:before {
+//   content: 'Today';
+//   color: white;
+//   background: $turquoise;
+//   font-size: 12px;
+//   padding: 0 5px;
+//   height: 16px;
+//   line-height: 16px;
+//   border-radius: 3px;
+//   display: inline-block;
+// }
 
 
 .event-link {
@@ -148,4 +176,28 @@ export default {
   color: $silver;
 }
 
+.event-date b {
+  font-weight: bold;
+  margin-right: 12px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.event-group {
+  border-bottom: 1px solid #EEEEEE;
+}
+.event-group.is-today {
+  box-shadow: 0 2.5px 10px rgba(0, 0, 0, .2);
+  border: none;
+  padding: 0 $block-10;
+  border-radius: $block-10;
+  margin: 0 0 $block-10 0;
+}
+.event-group.is-today .event-date b {
+  // border: 1px solid #DCDCDC;
+  // width: 45px;
+  // text-align: center;
+  // border-radius: 5px;
+  color: $dodger-blue;
+}
 </style>
