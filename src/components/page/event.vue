@@ -23,7 +23,6 @@
               <span class="event-date"><b :style="{ 'visibility': i === 0 ? 'visible' : 'hidden' }">{{ parseDate(event.datetime) }}</b>&nbsp;</span><a class="event-link" :href="event.url">{{event.title}}</a>
             </div>
           </div>
-          
         </div>
 
         <br>
@@ -106,32 +105,43 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
 @import '../../styles/theme.scss';
+
 .page-event {
   padding: 0 $block-20;
 }
+
 .col-12 {
   display: block;
   margin: auto;
   text-align: left;
 }
+
 .section-title {
   font-weight: bold;
 }
+
+.event-date {
+  min-width: 40px;
+}
+
 .event-link:before {
-  content: "-";
+  content: "○";
   display: inline-block;
   padding: 0 10px 0 0;
   font-weight: bold;
   color: $silver;
 }
+
 .event {
+  @extend %flex;
   color: $tundora;
-  display: block;
   line-height: 40px;
   vertical-align: middle;
   font-size: 14px;
 }
+
 .event-type {
   font-weight: bold;
   margin: $block-20 0 $block-10;
@@ -140,38 +150,15 @@ export default {
   color: $dove-gray;
 }
 
-
-// .event.is-expired:before {
-//   content: 'Past';
-//   color: white;
-//   background: $coral-red;
-//   font-size: 12px;
-//   padding: 0 5px;
-//   height: 16px;
-//   line-height: 30px;
-//   border-radius: 3px;
-//   display: inline-block;
-// }
-// .event.is-today:before {
-//   content: 'Today';
-//   color: white;
-//   background: $turquoise;
-//   font-size: 12px;
-//   padding: 0 5px;
-//   height: 16px;
-//   line-height: 16px;
-//   border-radius: 3px;
-//   display: inline-block;
-// }
-
-
 .event-link {
   @extend %no-link;
 }
+
 .event-link:hover {
   color: $dodger-blue;
   text-decoration: underline;
 }
+
 .event-link:visited {
   color: $silver;
 }
@@ -186,6 +173,7 @@ export default {
 .event-group {
   border-bottom: 1px solid #EEEEEE;
 }
+
 .event-group.is-today {
   box-shadow: 0 2.5px 10px rgba(0, 0, 0, .2);
   border: none;
@@ -193,6 +181,7 @@ export default {
   border-radius: $block-10;
   margin: 0 0 $block-10 0;
 }
+
 .event-group.is-today .event-date b {
   // border: 1px solid #DCDCDC;
   // width: 45px;
