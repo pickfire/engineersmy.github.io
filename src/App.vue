@@ -89,6 +89,9 @@ body.disable-hover {
   -moz-osx-font-smoothing: grayscale;
   color: $tundora;
 }
+input {
+  font-family: 'Lucida Grande', 'Avenir', Helvetica, Arial, sans-serif;
+}
 #sticky-footer {
   /*
    * For sticky footer, offset the footer height
