@@ -37,7 +37,45 @@
         </div>
       </div>
 
-      <d3-chart namespace="d3-chart"></d3-chart>
+      <br>
+      <br>
+      <br>
+
+      <div class="chart-title">
+        <h2>Registered Github Users in Malaysia over years</h2>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <chartist
+        ratio="ct-major-second"
+        type="Bar"
+        :data="chartData"
+        :options="chartOptions"
+      ></chartist>
+
+      <br>
+      <br>
+
+      <div class="chart-title">
+        <h2>Top 10 languages used by Github users in Malaysia</h2>
+      </div>
+      
+      <br>
+      <br>
+      <br>
+
+      <chartist
+        ratio="ct-major-second"
+        type="Pie"
+        :data="pieData"
+        :options="pieOptions"
+        :responsiveOptions="pieResponsiveOptions"
+      ></chartist>
+
+      <!--<d3-chart namespace="d3-chart"></d3-chart>-->
     </div>
   </div>
 </template>
@@ -47,6 +85,9 @@
 // import draw from '../../module/chart.js'
 import D3Chart from '../organism/d3-chart'
 import recommendations from '../../data/recommendation.json'
+import users from '../../data/user'
+import languages from '../../data/language'
+
 export default {
   name: 'page-data',
   beforeMount () {
@@ -89,7 +130,71 @@ export default {
     return {
       matches: this.matches,
       message: this.message,
-      username: this.username
+      username: this.username,
+      chartData: users,
+      chartOptions: {
+        fullWidth: true,
+        height: 400,
+        distributeSeries: true,
+        chartPadding: {
+          bottom: 40,
+          left: 40
+        },
+        plugins: [
+          this.$chartist.plugins.ctAxisTitle({
+            axisX: {
+              axisTitle: 'Year',
+              axisClass: 'ct-axis-title-test',
+              offset: {
+                x: 0,
+                y: 40
+              },
+              textAnchor: 'middle'
+            },
+            axisY: {
+              axisTitle: 'Registered users',
+              axisClass: '',
+              offset: {
+                x: -60,
+                y: 30
+              },
+              flipTitle: true
+            }
+          }),
+          this.$chartist.plugins.ctAccessibility({
+            caption: 'Registered Github users versus year',
+            seriesHeader: 'Registered Github users',
+            summary: 'A graphic that shows the number of registered users for Github over years in Malaysia',
+            valueTransform (value) {
+              console.log('value', value)
+              return value + ' users'
+            }
+            // visuallyHiddenStyles: true
+          })
+        ]
+      },
+      pieData: languages,
+      pieOptions: {
+        fullWidth: true,
+        height: 400,
+        labelInterpolationFnc (value) {
+          return value
+        }
+      },
+      pieResponsiveOptions: [
+        ['screen and (max-width: 640px)', {
+          chartPadding: 40,
+          labelOffset: 80,
+          labelDirection: 'explode',
+          labelInterpolationFnc (value) {
+            return value
+          }
+        }],
+        ['screen and (min-width: 1024px)', {
+          chartPadding: 40,
+          labelOffset: 110
+        }]
+      ]
     }
   }
 }
@@ -159,5 +264,9 @@ export default {
   font-size: 14px;
   font-weight: 600;
   padding: 0 $block-10;
+}
+.chart-title {
+  font-weight: bold;
+  text-align: center;
 }
 </style>

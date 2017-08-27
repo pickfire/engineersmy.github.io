@@ -8,17 +8,25 @@ import VueRouter from 'vue-router'
 import FastClick from 'fastclick'
 import i18n from './locale/index'
 import router from './router/index'
+import VueChartist from 'vue-chartist'
+import chartistPluginAxisTitle from './module/chartist/chartist-plugin-axistitle'
+import chartistPluginAccessibility from './module/chartist/chartist-plugin-accessibility'
+
 //
 // Internal dependencies
 // * All the internal dependencies
 //
 import App from './App'
 import Store from './vuex/index'
+
 /* eslint-disable no-new */
 /* Middlewares */
 Vue.use(VueI18n)
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(VueChartist)
+chartistPluginAxisTitle(Vue.chartist)
+chartistPluginAccessibility(Vue.chartist)
 
 FastClick.attach(document.body)
 

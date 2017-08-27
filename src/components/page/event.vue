@@ -60,14 +60,10 @@ export default {
           }))
           return arr
         }, [])
-        // const todayEvents = events.sections[index].filter((e) => {
-        //   return this.checkToday(e.datetime)
-        // })
         if (eventsGroupedByDate.length) {
           return {
             title,
             events: eventsGroupedByDate
-            // todayEvents: todayEvents
           }
         }
         return null
