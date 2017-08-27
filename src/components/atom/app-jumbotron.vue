@@ -61,7 +61,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted')
     window.requestAnimationFrame(this.update)
   },
   methods: {

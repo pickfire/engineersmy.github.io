@@ -60,6 +60,8 @@
     <!--Section: Display the chart component-->
     <div class="chart-svg" :class="namespace"></div>
 
+    <div class="chart-svg chart-cloud"></div>
+
     <!--Add extra padding below for scrolling-->
     <break rows="10"></break>
   </div>
@@ -77,6 +79,7 @@ export default {
   mounted () {
     chart.language(['.', this.namespace].join(''))
     chart.user('.chart-user')
+    chart.cloud('.chart-cloud')
   }
 }
 </script>
@@ -115,4 +118,5 @@ export default {
   @extend %list;
   color: $dove-gray;
 }
+
 </style>

@@ -33,7 +33,6 @@ FastClick.attach(document.body)
 const store = new Vuex.Store(Store)
 
 router.beforeEach((to, from, next) => {
-  console.log('beforeEach', store.state.user.data.name)
   // SET_LANGUAGE
   // * Set the language on the url
   // * Example: www.domain.com/en/home

@@ -54,6 +54,7 @@
         type="Bar"
         :data="chartData"
         :options="chartOptions"
+        :eventHandlers="chartEventHandlers"
       ></chartist>
 
       <br>
@@ -73,9 +74,10 @@
         :data="pieData"
         :options="pieOptions"
         :responsiveOptions="pieResponsiveOptions"
+        :eventHandlers="pieEventHandlers"
       ></chartist>
 
-      <!--<d3-chart namespace="d3-chart"></d3-chart>-->
+      <cloud-chart/>
     </div>
   </div>
 </template>
@@ -83,7 +85,7 @@
 <script>
 // Bad, don't access the methods directly
 // import draw from '../../module/chart.js'
-import D3Chart from '../organism/d3-chart'
+import CloudChart from '../organism/cloud-chart'
 import recommendations from '../../data/recommendation.json'
 import users from '../../data/user'
 import languages from '../../data/language'
@@ -96,7 +98,7 @@ export default {
     this.username = ''
   },
   components: {
-    D3Chart
+    CloudChart
   },
   methods: {
     onSearch (evt) {
@@ -132,6 +134,63 @@ export default {
       message: this.message,
       username: this.username,
       chartData: users,
+      chartEventHandlers: [{
+        event: 'draw',
+        fn (data) {
+          if (data.type === 'bar') {
+            data.element.animate({
+              y2: {
+                // The delay when we like to start the animation
+                begin: 500 + data.seriesIndex * 100,
+                // Duration of the animation
+                dur: 150,
+                // The value where the animation should start
+                from: data.y1,
+                // The value where it should end
+                to: data.y2
+              },
+              opacity: {
+                begin: data.seriesIndex * 100,
+                dur: 150,
+                from: 0,
+                to: 1
+              }
+            })
+          } else if (data.type === 'grid') {
+            const seq = data.index
+            const delays = 100
+            const durations = 250
+            const pos1Animation = {
+              begin: seq * delays,
+              dur: durations,
+              from: data[data.axis.units.pos + '1'] - 30,
+              to: data[data.axis.units.pos + '1'],
+              easing: 'easeOutQuart'
+            }
+
+            const pos2Animation = {
+              begin: seq * delays,
+              dur: durations,
+              from: data[data.axis.units.pos + '2'] - 100,
+              to: data[data.axis.units.pos + '2'],
+              easing: 'easeOutQuart'
+            }
+
+            const animations = {}
+            animations[data.axis.units.pos + '1'] = pos1Animation
+            animations[data.axis.units.pos + '2'] = pos2Animation
+            animations['opacity'] = {
+              begin: seq * delays,
+              dur: durations,
+              from: 0,
+              to: 1,
+              easing: 'easeOutQuart'
+            }
+
+            data.element.animate(animations)
+          }
+        }
+      }],
       chartOptions: {
         fullWidth: true,
         height: 400,
@@ -166,25 +225,66 @@ export default {
             seriesHeader: 'Registered Github users',
             summary: 'A graphic that shows the number of registered users for Github over years in Malaysia',
             valueTransform (value) {
-              console.log('value', value)
               return value + ' users'
             }
             // visuallyHiddenStyles: true
           })
         ]
       },
+      pieEventHandlers: [{
+        event: 'draw',
+        fn: (data) => {
+          if (data.type === 'slice') {
+            // Get the total path length in order to use for dash array animation
+            const pathLength = data.element._node.getTotalLength()
+
+            // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+            data.element.attr({
+              'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+            })
+
+            // Create animation definition while also assigning an ID to the animation for later sync usage
+            const animationDefinition = {
+              'stroke-dashoffset': {
+                id: 'anim' + data.index,
+                dur: 150,
+                from: -pathLength + 'px',
+                to: '0px',
+                // easing: this.$chartist.Svg.Easing.easeOutQuint,
+                // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                fill: 'freeze'
+              }
+            }
+
+            // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+            if (data.index !== 0) {
+              animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end'
+            }
+
+            // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+            data.element.attr({
+              'stroke-dashoffset': -pathLength + 'px'
+            })
+
+              // We can't use guided mode as the animations need to rely on setting begin manually
+              // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+            data.element.animate(animationDefinition, false)
+          }
+        }
+      }],
       pieData: languages,
       pieOptions: {
         fullWidth: true,
         height: 400,
         labelInterpolationFnc (value) {
           return value
-        }
+        },
+        donut: true
       },
       pieResponsiveOptions: [
         ['screen and (max-width: 640px)', {
           chartPadding: 40,
-          labelOffset: 80,
+          labelOffset: 60,
           labelDirection: 'explode',
           labelInterpolationFnc (value) {
             return value
@@ -192,7 +292,7 @@ export default {
         }],
         ['screen and (min-width: 1024px)', {
           chartPadding: 40,
-          labelOffset: 110
+          labelOffset: 60
         }]
       ]
     }

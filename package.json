@@ -16,6 +16,7 @@
     "chartist-plugin-accessibility": "0.0.4",
     "chartist-plugin-axistitle": "0.0.1",
     "d3": "^4.9.1",
+    "d3-dispatch": "^1.0.3",
     "fastclick": "^1.0.6",
     "moment": "^2.18.1",
     "node-sass": "^3.13.1",

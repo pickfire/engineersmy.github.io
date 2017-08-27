@@ -11,7 +11,6 @@
 const SET_LOCALE = 'SET_LOCALE'
 import moment from 'moment'
 import { Languages } from '../../locale/index'
-console.log(Languages)
 const state = {
   locale: 'en-us',
   languages: Languages
