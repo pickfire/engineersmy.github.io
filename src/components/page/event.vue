@@ -3,11 +3,18 @@
     <div class="col-12">
       <break rows="3"></break>
 
-      <h1>Events in Malaysia</h1>
+        <!--<span class="page-title">Events in Malaysia</span>-->
+        <div class="search">
+          <input class="search-input" type="search" @keyup="onSearch" v-model="keyword" placeholder="Search for events..."/>
+        </div>
 
       <br>
+      
+      <small class="search-response" v-if="searchCount">Found <b>{{searchCount}}</b> {{searchCount === 1 ? 'event' : 'events' }}</small>
+      
+      <br>
 
-      <div class="section" v-for="section in sections">
+      <div class="section" v-for="section in search">
         <div><b class="section-title">{{section.title}}</b></div>
 
         <br>
@@ -15,6 +22,7 @@
         <div v-for="(groups, index) in section.events"
           class="event-group"
           :class='{"is-today": checkToday(groups.length ? groups[0].date : -1)}'>
+
           <!--Start looping groups of events-->
           <div v-for="(event, i) in groups">
             <div 
@@ -37,19 +45,24 @@
 import Break from '../atom/break.vue'
 import moment from 'moment'
 import elasticlunr from 'elasticlunr'
+import uuidv4 from 'uuid/v4'
 // import githubParser from '../../module/github-event-parser.js'
 export default {
   name: 'page-event',
   components: { Break },
   data () {
     return {
-      sections: []
+      sections: [],
+      search: [],
+      searchCount: 0,
+      keyword: ''
     }
   },
   beforeMount () {
     window.fetch('https://api.engineers.my/events')
     .then((body) => body.json())
     .then(this.filterEvents)
+    .then(this.addId)
     .then((data) => {
       this.parseEvents(data)
       this.indexDocuments(data)
@@ -65,6 +78,15 @@ export default {
       .filter(m => m.year >= year)
       .filter(m => m.month >= month)
     },
+    addId (data) {
+      return data.map((group) => {
+        group.day = group.day.map((event) => {
+          event.id = uuidv4()
+          return event
+        })
+        return group
+      })
+    },
     parseEvents (data) {
       this.sections = data
       .map(({ year, month, month_string: monthString, day }) => {
@@ -79,15 +101,22 @@ export default {
         }, [])
         return { title, events }
       })
+
+      this.search = this.sections
     },
     indexDocuments (data) {
       this.elasticlunr = elasticlunr(function () {
         this.addField('title')
+        this.setRef('id')
+        this.saveDocument(false)
       })
       data
       .map(({ day }) => {
-        day.map(({ title }) => {
-          this.elasticlunr.addDoc({ title })
+        day.map(({ id, title }) => {
+          this.elasticlunr.addDoc({
+            id,
+            title
+          })
         })
       })
     },
@@ -112,6 +141,33 @@ export default {
     },
     checkArray (array) {
       return Array.isArray(array)
+    },
+    onSearch (evt) {
+      if (!this.elasticlunr) return
+      const ids = this.elasticlunr.search(this.keyword, {})
+      .map(e => e.ref)
+      if (!ids.length) {
+        this.searchCount = 0
+        this.search = [...this.sections]
+        return
+      }
+
+      this.search = [...this.sections].map((data) => {
+        if (!data) {
+          return null
+        }
+        const events = data.events.map((event) => {
+          return event.filter((evt) => ids.includes(evt.id))
+        }).filter(e => e.length)
+        return {
+          events,
+          title: data.title
+        }
+      }).filter(x => x.events.length)
+
+      this.searchCount = this.search.reduce((a, b) => {
+        return a + b.events.length
+      }, 0)
     }
   }
 }
@@ -121,6 +177,7 @@ export default {
 <style lang="scss" scoped>
 
 @import '../../styles/theme.scss';
+
 
 .page-event {
   padding: 0 $block-20;
@@ -202,5 +259,33 @@ export default {
   // text-align: center;
   // border-radius: 5px;
   color: $dodger-blue;
+}
+.search {
+  text-align: center;
+}
+.search-input {
+  margin: auto;
+  height: 35px;
+  display: block;
+  font-family: Arial;
+  font-size: 14px;
+  max-width: 320px;
+  width: 100%;
+  border: 3px solid $mercury;
+  border-radius: 5px;
+  padding: 0 10px;
+  outline: none;
+  transition: .174s all ease-out;
+}
+
+
+.search-input:focus { 
+  border-color: rgba($dodger-blue, .5);
+}
+
+.search-response {
+  font-size: 14px;
+  color: $dove-gray;
+  display: block;
 }
 </style>
