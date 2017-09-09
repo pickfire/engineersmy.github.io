@@ -269,7 +269,7 @@ export default {
   display: block;
   font-family: Arial;
   font-size: 14px;
-  max-width: 320px;
+  max-width: 360px;
   width: 100%;
   border: 3px solid $mercury;
   border-radius: 5px;
