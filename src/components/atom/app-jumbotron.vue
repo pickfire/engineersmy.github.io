@@ -17,7 +17,7 @@
           
           <br>
           
-          <p class='app-jumbotron-subheading'>An open source community for developers to share, collaborate and improve the tech community in Malaysia.</p>
+          <p class='app-jumbotron-subheading'>An open source community for developers/designers to share, collaborate and improve the tech community in Malaysia.</p>
 
           <br>
           <br>
@@ -182,6 +182,13 @@ export default {
 
 .app-jumbotron-heading {
   font-weight: bold;
+  font-size: 4em;
+}
+
+@media (max-width: 480px) {
+  .app-jumbotron-heading  {
+    font-size: 2.5em;
+  }
 }
 
 .app-jumbotron-subheading {

@@ -14,15 +14,16 @@
 
         <div v-for="(groups, index) in section.events"
           class="event-group"
-          :class='{"is-today": checkToday(groups[0].datetime)}'>
-        
+          :class='{"is-today": checkToday(groups.length ? groups[0].date : -1)}'>
+          <!--Start looping groups of events-->
           <div v-for="(event, i) in groups">
             <div 
               class="event"
-              :class='{"is-expired": checkExpiry(event.datetime), "is-today": checkToday(event.datetime)}'>
-              <span class="event-date"><b :style="{ 'visibility': i === 0 ? 'visible' : 'hidden' }">{{ parseDate(event.datetime) }}</b>&nbsp;</span><a class="event-link" :href="event.url">{{event.title}}</a>
+              :class='{"is-expired": checkExpiry(event.date), "is-today": checkToday(event.date)}'>
+              <span class="event-date"><b :style="{ 'visibility': i === 0 ? 'visible' : 'hidden' }">{{event.day}}</b>&nbsp;</span><a class="event-link" :href="event.url">{{event.title}}</a>
             </div>
           </div>
+          <!--End looping group of events-->
         </div>
 
         <br>
@@ -35,7 +36,8 @@
 <script>
 import Break from '../atom/break.vue'
 import moment from 'moment'
-import githubParser from '../../module/github-event-parser.js'
+import elasticlunr from 'elasticlunr'
+// import githubParser from '../../module/github-event-parser.js'
 export default {
   name: 'page-event',
   components: { Break },
@@ -44,35 +46,51 @@ export default {
       sections: []
     }
   },
-  mounted () {
-    window.fetch('https://raw.githubusercontent.com/engineersmy/events/master/README.md').then((body) => {
-      return body.text()
-    }).then((data) => {
-      const events = githubParser(data)
-      this.sections = events.titles.map((title, index) => {
-        const availableEvents = events.sections[index].filter((e) => {
-          return !this.checkExpiry(e.datetime) // && !this.checkToday(e.datetime)
-        })
-
-        const eventsGroupedByDate = [...new Set(availableEvents.map((e) => e.datetime.getTime()))].reduce((arr, timestamp) => {
-          arr.push(availableEvents.filter((e) => {
-            return e.datetime.getTime() === timestamp
-          }))
-          return arr
-        }, [])
-        if (eventsGroupedByDate.length) {
-          return {
-            title,
-            events: eventsGroupedByDate
-          }
-        }
-        return null
-      }).filter((x) => x)
-    }).catch((error) => {
-      console.log(error)
-    })
+  beforeMount () {
+    window.fetch('https://api.engineers.my/events')
+    .then((body) => body.json())
+    .then(this.filterEvents)
+    .then((data) => {
+      this.parseEvents(data)
+      this.indexDocuments(data)
+    }).catch(console.error)
   },
   methods: {
+    filterEvents (data) {
+      const dateObj = new Date()
+      const year = dateObj.getFullYear()
+      const month = dateObj.getMonth() + 1
+
+      return data.months
+      .filter(m => m.year >= year)
+      .filter(m => m.month >= month)
+    },
+    parseEvents (data) {
+      this.sections = data
+      .map(({ year, month, month_string: monthString, day }) => {
+        const title = [ monthString, year ].join(' ')
+        const events = [...new Set(day.map(e => new Date(e.date).getTime()))]
+        .reduce((arr, timestamp) => {
+          arr.push(day
+            .filter(e => new Date(e.date).getTime() === timestamp)
+            .filter(e => new Date(e.date).getTime() >= new Date().setHours(0, 0, 0, 0))
+          )
+          return arr.filter(x => x.length)
+        }, [])
+        return { title, events }
+      })
+    },
+    indexDocuments (data) {
+      this.elasticlunr = elasticlunr(function () {
+        this.addField('title')
+      })
+      data
+      .map(({ day }) => {
+        day.map(({ title }) => {
+          this.elasticlunr.addDoc({ title })
+        })
+      })
+    },
     parseDate (timestamp) {
       return moment(timestamp).format('Do')
     },
