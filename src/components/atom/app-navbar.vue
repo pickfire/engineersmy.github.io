@@ -6,7 +6,7 @@
       :to='route.path'
       :class="{'is-selected': $route.name === route.name }"
     >{{ route.name }} </router-link>
-
+    <a class='nav-item' href='https://events.engineers.my/' target='_blank'>Events</a>
     <a class='nav-item' href='http://articles.engineers.my/' target='_blank'>Articles</a>
   </div>
 </template>
