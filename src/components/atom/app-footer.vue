@@ -33,7 +33,7 @@ export default {
 @import '../../styles/colors.scss';
 footer {
   height: 100px;
-  background: #D4C7C7;
+  background:  $mercury;;
   color: white;
   line-height: 50px;
   text-align: right;
