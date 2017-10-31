@@ -1,6 +1,6 @@
 <template>
   <div class='app-jumbotron square-wrapper'>
-    <div 
+    <div
     v-for='square in squares'
     class='square'
     :style='{
@@ -14,9 +14,9 @@
         <div>
 
           <h1 class='app-jumbotron-heading'>Engineers.my</h1>
-          
+
           <br>
-          
+
           <p class='app-jumbotron-subheading'>An open source community for developers/designers to share, collaborate and improve the tech community in Malaysia.</p>
 
           <br>
@@ -24,16 +24,26 @@
           <br>
 
           <p class='slack-invite-heading'>Join engineers.my Slack Community</p>
-          
+
           <br>
 
-          <a 
-            href='https://engineersmy.herokuapp.com/' 
-            class='button-slack-wrapper'
-            title='Join engineers.my slack group here'
-          >
-            <img class='button-slack' src="/static/slack.png" alt='slack.png'>
-          </a>
+          <div class="social-container">
+            <div class="slack">
+              <a
+                href='https://engineersmy.herokuapp.com/'
+                class='button-slack-wrapper'
+                title='Join engineers.my slack group here'>
+                <img class='button-slack' src="/static/slack.png" alt='slack.png'>
+              </a>
+            </div>
+             <div class="facebook">
+              <div class="fb-like" 
+                data-href="https://www.facebook.com/EngineersMY-110921772845688" 
+                data-layout="standard" data-action="like" data-size="large" 
+                data-show-faces="true" data-share="true">
+              </div>
+             </div>
+          </div>
         </div>
       <br>
     </div>
@@ -231,5 +241,17 @@ export default {
   left: 0;
   transition: .174s all cubic-bezier(0.68, -0.55, 0.265, 1.55);
   background: $dodger-blue;
+}
+.social-container {
+  width: 100%;
+  float: left;
+}
+.slack {
+  width: 40%;
+  float: left;
+}
+.facebook {
+  width: 40%;
+  float: left;
 }
 </style>
