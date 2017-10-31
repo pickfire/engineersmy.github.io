@@ -30,7 +30,7 @@
       </app-body>
     </div>
     <!--Sticky footer-->
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
   </div>
 </template>
 
