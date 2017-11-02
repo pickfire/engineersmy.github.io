@@ -1,13 +1,13 @@
 <template>
   <footer class='app-footer'>
-    <span>Language:</span>
-    <select v-on:change='selectLanguage'>
-      <option
-        class='footer-item'
-        v-for='language in languages'
-        :value='language.id'
-      >{{language.label}}</option>
-    </select>
+  <div class="fb-like" 
+      data-href="https://www.facebook.com/EngineersMY-110921772845688/" 
+      data-layout="standard" 
+      data-action="like" 
+      data-size="large" 
+      data-show-faces="false" 
+      data-share="true">
+  </div>
   </footer>
 </template>
 
@@ -33,7 +33,7 @@ export default {
 @import '../../styles/colors.scss';
 footer {
   height: 100px;
-  background: #202020;
+  background: $mercury;;
   color: white;
   line-height: 50px;
   text-align: right;

@@ -17,11 +17,11 @@
 
       <!--Main app navigation-->
       <app-navbar></app-navbar>
-      
+
       <!--This is where the content of the page goes to-->
       <!--The router view will render the page component based on the path-->
       <app-body>
-        
+
         <transition
           :name='transitionName'
           :mode='transitionMode'>
@@ -30,7 +30,7 @@
       </app-body>
     </div>
     <!--Sticky footer-->
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
   </div>
 </template>
 
