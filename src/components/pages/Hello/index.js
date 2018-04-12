@@ -3,7 +3,7 @@ import React from 'react'
 import Base from 'containers/Base'
 
 const Home = (props) => (
-  <Base>Hello Page!</Base>
+  <Base {...props}>Hello Page!</Base>
 )
 
 export default Home

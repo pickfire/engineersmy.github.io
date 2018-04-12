@@ -1,7 +1,10 @@
-.app-header {
+.header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   height: var(--header-height);
   line-height: var(--header-height);
   padding: 0 16px;
-  background: white;
-  font-weight: medium; }
+  background: white; }
+
+.brand {
+  text-decoration: none;
+  font-weight: 600; }

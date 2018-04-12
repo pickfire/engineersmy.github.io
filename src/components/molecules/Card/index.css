@@ -1,0 +1,25 @@
+.card {
+  width: 240px;
+  background: white;
+  display: block;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: .1s all ease-out;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 16px 0 0; }
+
+.card:hover {
+  transform: translate3d(0, -10px, 0);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15); }
+
+.card-image {
+  background: #DDDDDD;
+  height: 160px; }
+
+.card-info {
+  padding: 10px; }
+
+.card-description {
+  color: var(--gray); }

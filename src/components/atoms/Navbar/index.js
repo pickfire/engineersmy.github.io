@@ -1,10 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './index.css'
 
-const Navbar = () => (
+function classNames (...classes) {
+	return classes.join(' ').trim()
+}
+
+const Navbar = ({ items, location }) => (
 	<div className="navbar">
-		<div className="navbar-item is-selected">Hello</div>
-		<div className="navbar-item">World</div>
+		{
+			items.map((item, i) => (
+				<Link 
+					className={
+						classNames(
+							"navbar-item", 
+							location.pathname === item.href ? 'is-selected' : ''
+						)
+					} 
+					to={item.href}
+					key={i}
+				>
+					{item.label}
+				</Link>
+			))
+		}
 	</div>
 )
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import './index.css'
 
 const Header = ({ brand }) => (
-	<div className="app-header">
+	<div className="header">
 		<Link className="brand" to="/">{brand}</Link>
 	</div>
 )

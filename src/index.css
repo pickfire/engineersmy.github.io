@@ -10,4 +10,5 @@
   --footer-height: 40px; }
 
 body {
-  font-family: 'Nunito', sans-serif; }
+  font-family: 'Nunito', sans-serif;
+  background: var(--alabaster); }

@@ -1,5 +1,7 @@
 @import './styles/theme.scss';
 
+// Global styles
 body {
 	font-family: 'Nunito', sans-serif;
+	background: var(--alabaster);
 }

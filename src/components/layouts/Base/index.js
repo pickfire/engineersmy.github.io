@@ -17,7 +17,7 @@ const Base = (props) => {
   return (
     <div className='base'>
       <Header brand={props.brand}/>
-      <Navbar/>
+      <Navbar {...props} items={props.navbars}/>
       <Body>{props.children}</Body>
       <Footer/>
     </div>
