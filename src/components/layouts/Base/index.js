@@ -1,7 +1,7 @@
 // Base is the default header-footer layout that would be reuse in most pages
 
 import React from 'react'
-import './style.css'
+import './index.css'
 
 // AppComponents
 import Header from 'components/atoms/Header'
@@ -16,7 +16,7 @@ import Navbar from 'components/atoms/Navbar'
 const Base = (props) => {
   return (
     <div className='base'>
-      <Header brand='engineers.my'/>
+      <Header brand={props.brand}/>
       <Navbar/>
       <Body>{props.children}</Body>
       <Footer/>

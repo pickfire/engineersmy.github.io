@@ -1,5 +1,13 @@
+:root {
+  --alabaster: #F7F7F7;
+  --gallery: #EEEEEE;
+  --gray: #888888; }
+
+:root {
+  --header-height: 60px;
+  --navbar-height: 40px;
+  --body-height: 1fr;
+  --footer-height: 40px; }
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+  font-family: 'Nunito', sans-serif; }

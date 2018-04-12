@@ -1,15 +1,18 @@
 import React from 'react'
-import './style.css'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
+import './index.css'
 
 const Header = ({ brand }) => (
 	<div className="app-header">
-		<div className="brand">{brand}</div>
+		<Link className="brand" to="/">{brand}</Link>
 	</div>
 )
 
 // Default props
-Header.defaultProps = {
-	brand: 'appName'
+Header.propTypes = {
+	brand: PropTypes.string.isRequired
 }
 
 export default Header

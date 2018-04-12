@@ -1,3 +1,5 @@
+
+
 .navbar {
 	background: var(--gallery);
 	height: var(--navbar-height);
@@ -7,16 +9,14 @@
 	display: grid;
 	grid-column-gap: 8px;
 	grid-template-columns: repeat(auto-fit, minmax(40px, min-content));
-	grid-template-rows: 4px 1fr 4px;
+	align-content: center;
 }
 
+$navbar-item-height: 24px;
 .navbar-item {
-	display: grid;
-	grid-row: 2 / 3;
-	height: 24px;
-	line-height: 24px;
+	height: $navbar-item-height;
+	line-height: $navbar-item-height;
 	padding: 0 8px;
-	// background: red;
 	border-radius: 5px;
 	cursor: pointer;
 }
