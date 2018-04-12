@@ -1,0 +1,25 @@
+.navbar {
+  background: var(--gallery);
+  height: var(--navbar-height);
+  line-height: var(--navbar-height);
+  color: var(--gray);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(40px, min-content));
+  grid-template-rows: 4px 1fr 4px; }
+
+.navbar-item {
+  display: grid;
+  grid-row: 2 / 3;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  cursor: pointer; }
+
+.navbar-item:hover {
+  background: white; }
+
+.navbar-item.is-selected {
+  font-weight: medium; }
