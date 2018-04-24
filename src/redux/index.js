@@ -1,9 +1,10 @@
 import { createStore, combineReducers } from 'redux'
-import { brand, navbars } from './app'
+
+// Reducers
+import * as appReducers from 'redux/reducers/app'
 
 const app = combineReducers({
-  brand,
-  navbars
+  ...appReducers
 })
 
 // The default state of the application
@@ -18,7 +19,8 @@ const INITIAL_STATE = {
       label: 'Videos',
       href: '/hello'
     }
-  ]
+  ],
+  footer: 'Copyright © 2018 engineers.my'
 }
 
 export default createStore(app, INITIAL_STATE)

@@ -1,7 +1,11 @@
 :root {
   --alabaster: #F7F7F7;
   --gallery: #EEEEEE;
-  --gray: #888888; }
+  --gray: #888888;
+  --green-white: #EBEBDF;
+  --husk: #B3AF44;
+  --woodland: #374620;
+  --mine-shaft: #252525; }
 
 :root {
   --header-height: 60px;

@@ -18,7 +18,6 @@ import registerServiceWorker from './registerServiceWorker'
 import HomePage from 'components/pages/Home'
 import HelloPage from 'components/pages/Hello'
 
-
 const Root = ({store}) => (
   <Provider store={store}>
     <Router>

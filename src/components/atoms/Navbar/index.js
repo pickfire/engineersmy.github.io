@@ -3,28 +3,28 @@ import { Link } from 'react-router-dom'
 import './index.css'
 
 function classNames (...classes) {
-	return classes.join(' ').trim()
+  return classes.join(' ').trim()
 }
 
 const Navbar = ({ items, location }) => (
-	<div className="navbar">
-		{
+  <div className='navbar'>
+    {
 			items.map((item, i) => (
-				<Link 
-					className={
+  <Link
+    className={
 						classNames(
-							"navbar-item", 
+							'navbar-item',
 							location.pathname === item.href ? 'is-selected' : ''
 						)
-					} 
-					to={item.href}
-					key={i}
+					}
+    to={item.href}
+    key={i}
 				>
-					{item.label}
-				</Link>
+    {item.label}
+  </Link>
 			))
 		}
-	</div>
+  </div>
 )
 
 export default Navbar

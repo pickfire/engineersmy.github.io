@@ -9,21 +9,15 @@ import Body from 'components/atoms/Body'
 import Footer from 'components/atoms/Footer'
 import Navbar from 'components/atoms/Navbar'
 
-// TODO: Remove this
-// import AddTodo from 'containers/AddTodo'
-// import VisibleTodoList from 'containers/VisibleTodoList'
-
-const Base = (props) => {
+const Base = ({ brand, navbars, children, footer, location }) => {
   return (
     <div className='base'>
-      <Header brand={props.brand}/>
-      <Navbar {...props} items={props.navbars}/>
-      <Body>{props.children}</Body>
-      <Footer/>
+      <Header brand={brand} />
+      <Navbar location={location} items={navbars} />
+      <Body>{children}</Body>
+      <Footer footer={footer} />
     </div>
   )
 }
-
-
 
 export default Base
