@@ -2,8 +2,19 @@
 
 // Global styles
 body {
-	font-family: 'Avenir', Arial, Helvetica, sans-serif;
+	font-family: 'Poppins', -apple-system, system-ui, avenir, "lucida grande", "gill sans", "helvetica neue", helvetica, sans-serif;
 	background: var(--alabaster);
 	color: var(--mine-shaft);
 }
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+img {
+	box-sizing: content-box; 
+}

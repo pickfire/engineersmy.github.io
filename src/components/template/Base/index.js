@@ -7,13 +7,13 @@ import './index.css'
 import Header from 'components/atoms/Header'
 import Body from 'components/atoms/Body'
 import Footer from 'components/atoms/Footer'
-import Navbar from 'components/atoms/Navbar'
+// import Navbar from 'components/atoms/Navbar'
 
 const Base = ({ brand, navbars, children, footer, location }) => {
   return (
     <div className='base'>
       <Header brand={brand} />
-      <Navbar location={location} items={navbars} />
+      {/* <Navbar location={location} items={navbars} /> */}
       <Body>{children}</Body>
       <Footer footer={footer} />
     </div>

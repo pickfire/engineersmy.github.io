@@ -1,14 +1,14 @@
 .header {
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
 	height: var(--header-height);
 	line-height: var(--header-height);
 	padding: 0 16px;
-	background: var(--woodland);
-	color: var(--green-white);
+	background: var(--dodger-blue);
+	color: white;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
 }
 
 .brand {
 	text-decoration: none;
-	font-weight: 500;
 	color: inherit;
+	font-size: 20px;
 }

@@ -2,6 +2,7 @@
   --alabaster: #F7F7F7;
   --gallery: #EEEEEE;
   --gray: #888888;
+  --dodger-blue: #5873FF;
   --green-white: #EBEBDF;
   --husk: #B3AF44;
   --woodland: #374620;
@@ -11,9 +12,18 @@
   --header-height: 60px;
   --navbar-height: 40px;
   --body-height: 1fr;
-  --footer-height: 40px; }
+  --footer-height: 50px; }
 
 body {
-  font-family: 'Avenir', Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', -apple-system, system-ui, avenir, "lucida grande", "gill sans", "helvetica neue", helvetica, sans-serif;
   background: var(--alabaster);
   color: var(--mine-shaft); }
+
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+img {
+  box-sizing: content-box; }

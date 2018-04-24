@@ -1,0 +1,14 @@
+.community-holder {
+  background: white;
+  min-height: 240px;
+  padding: 0 16px; }
+
+.community-title-holder {
+  text-align: center; }
+
+.profile-holder {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-column-gap: 16px;
+  justify-content: center; }

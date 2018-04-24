@@ -1,0 +1,16 @@
+.card {
+  text-align: center;
+  border-radius: 3px;
+  display: inline-block; }
+
+.card-img {
+  display: inline-block;
+  background: var(--gallery);
+  border: 1px solid var(--gallery);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%; }
+
+.card-info__name {
+  font-weight: bold;
+  color: var(--dodger-blue); }

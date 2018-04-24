@@ -1,10 +1,62 @@
-.container {
+
+.jumbotron {
 	width: 100%;
-	background: white;
-	border-radius: 7px;
-	padding: 12px;
+	background: var(--dodger-blue);
+	color: white;
+	padding: 128px 0;
+	text-align: center;
+
+	position: relative;
+	// To prevent overflowng code
+	overflow: hidden;
 }
 
-.container-description {
-	color: var(--gray);
+.jumbotron-heading {
+	font-size: 64px;
+	font-family: 'Playfair Display', serif;
+	font-weight: bold;
+}
+
+.jumbotron-subheading {
+	font-size: 20px;
+	max-width: 640px;
+	line-height: 1.5em;
+	text-align: center;
+	margin: auto;
+	font-weight: 300;
+	color: rgba(white, .8);
+}
+
+$button-slack-height: 30px;
+.button-slack {
+	background: rgba(white, .2);
+	display: inline-block;
+	padding: 0 16px;
+	height: $button-slack-height;
+	line-height: $button-slack-height;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+}
+
+.button-slack:hover {
+	background: rgba(white, .4);
+}
+
+.code {
+	position: absolute;
+	text-align: left;
+	top: 0;
+	left: 16px;
+	font-size: small;
+	opacity: .15;
+	line-height: 1.5em;
+
+	// Gradient text
+	// background: -webkit-linear-gradient(45deg, white, #FF4444);
+	// background-clip: text;
+  // -webkit-background-clip: text;
+	// -webkit-text-fill-color: transparent;
+	font-family: Courier New, Courier, monospace;
 }
