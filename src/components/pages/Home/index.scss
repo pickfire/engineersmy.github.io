@@ -1,62 +1,22 @@
-
-.jumbotron {
-	width: 100%;
-	background: var(--dodger-blue);
-	color: white;
-	padding: 128px 0;
-	text-align: center;
-
-	position: relative;
-	// To prevent overflowng code
-	overflow: hidden;
-}
-
-.jumbotron-heading {
-	font-size: 64px;
-	font-family: 'Playfair Display', serif;
-	font-weight: bold;
-}
-
-.jumbotron-subheading {
-	font-size: 20px;
-	max-width: 640px;
-	line-height: 1.5em;
-	text-align: center;
+.event-holder {
 	margin: auto;
-	font-weight: 300;
-	color: rgba(white, .8);
+	max-width: 960px;
+	background: white;
+	padding: 16px;
 }
 
-$button-slack-height: 30px;
-.button-slack {
-	background: rgba(white, .2);
+$event-dot-height: 10px;
+.event-dot {
+	border-radius: 50%;
+	height: $event-dot-height;
+	width: $event-dot-height;
+	background: var(--dodger-blue);
 	display: inline-block;
-	padding: 0 16px;
-	height: $button-slack-height;
-	line-height: $button-slack-height;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
-	color: inherit;
+	vertical-align: middle;
+	margin: 0 10px;
 }
 
-.button-slack:hover {
-	background: rgba(white, .4);
-}
-
-.code {
-	position: absolute;
-	text-align: left;
-	top: 0;
-	left: 16px;
-	font-size: small;
-	opacity: .15;
-	line-height: 1.5em;
-
-	// Gradient text
-	// background: -webkit-linear-gradient(45deg, white, #FF4444);
-	// background-clip: text;
-  // -webkit-background-clip: text;
-	// -webkit-text-fill-color: transparent;
-	font-family: Courier New, Courier, monospace;
+.event-info {
+	display: inline-block;
+	vertical-align: middle;
 }

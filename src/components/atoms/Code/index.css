@@ -1,0 +1,9 @@
+.code {
+  font-family: Courier New, Courier, monospace;
+  font-size: small;
+  line-height: 1.5em;
+  position: absolute;
+  text-align: left;
+  top: 0;
+  left: 16px;
+  opacity: .15; }

@@ -1,0 +1,39 @@
+.jumbotron-heading {
+  font-family: 'Playfair Display', serif; }
+
+.jumbotron {
+  width: 100%;
+  background: var(--dodger-blue);
+  color: white;
+  padding: 128px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden; }
+
+.jumbotron-heading {
+  font-size: 64px;
+  font-weight: bold; }
+
+.jumbotron-subheading {
+  font-size: 20px;
+  max-width: 640px;
+  width: 100%;
+  line-height: 1.5em;
+  text-align: center;
+  margin: auto;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6); }
+
+.button-slack {
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-block;
+  padding: 0 16px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit; }
+
+.button-slack:hover {
+  background: rgba(255, 255, 255, 0.4); }
