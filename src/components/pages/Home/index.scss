@@ -1,11 +1,18 @@
-.event-holder {
-	margin: auto;
-	max-width: 960px;
-	background: white;
-	padding: 16px;
+@import '../../../styles/placeholder.scss';
+
+.event-holder,
+.meetup-holder,
+.volunteer-holder {
+	@extend %card;
 }
 
-$event-dot-height: 10px;
+.event-holder-title,
+.meetup-holder-title,
+.volunteer-holder-title {
+	font-size: 14px;
+	font-weight: bold;
+}
+$event-dot-height: 8px;
 .event-dot {
 	border-radius: 50%;
 	height: $event-dot-height;
@@ -19,4 +26,8 @@ $event-dot-height: 10px;
 .event-info {
 	display: inline-block;
 	vertical-align: middle;
+}
+
+.event-holder-footer {
+	color: var(--gray);
 }

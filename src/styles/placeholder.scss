@@ -1,3 +1,14 @@
+$coral-red: #FF4444;
+
 %heading {
 	font-family: 'Playfair Display', serif;
+}
+
+%card {
+	margin: auto;
+	max-width: 800px;
+	background: white;
+	padding: 0 16px;
+	border-radius: 5px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
 }

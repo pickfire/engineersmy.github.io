@@ -9,9 +9,11 @@ import Jumbotron from 'components/molecules/Jumbotron'
 // Organisms
 import Base from 'components/organisms/Base'
 import Community from 'components/organisms/Community'
+import Br from 'components/atoms/Break'
 
 const Home = (props) => (
   <Base {...props}>
+
     <Jumbotron
       heading='engineers.my'
       subheading='An open community for developers/designers to share, collaborate and improve the tech community in Malaysia.'
@@ -21,35 +23,56 @@ const Home = (props) => (
     <br />
 
     <div className='event-holder'>
-      <h1 className='event-holder-title'>Events Today</h1>
-
-      <div><i className='fa fa-calendar-o' /> There are 10 events today...</div>
-
-      <br />
+      <Br />
+      <div className='event-holder-title'><i className='fa fa-calendar-o' /> Events Today</div>
+      <Br />
 
       <div className='event'>
         <div className='event-dot' />
-        <div className='event-info'><b>5:45 p.m.</b> Data Science for Kids</div>
+        <div className='event-info'><b className='event-time'>5:45 p.m.</b> - Data Science for Kids</div>
+      </div>
+      <Br px={10} />
+      <div className='event'>
+        <div className='event-dot' />
+        <div className='event-info'><b className='event-time'>9:00 p.m.</b> - KualaLumpurJS</div>
       </div>
 
-      <br />
-      <br />
+      <Br />
 
-      <small>Want to contribute to our event page?</small>
-      <br />
+      <div className='event-holder-footer'>
+        <small>Want to contribute to our event page?</small>
+      </div>
+
+      <Br />
     </div>
 
-    <div>
-      <h1>Meetups Area</h1>
+    <Br />
+
+    <div className='meetup-holder'>
+      <Br />
+
+      <div className='meetup-holder-title'><i className='fa fa-map' /> Meetups Areas</div>
+      <Br />
 
       <div>Find out where we do our meetup...</div>
+
+      <Br />
     </div>
 
-    <div>
-      <h1><i className='fa fa-camera' /> Volunteer for Recording/Meetups</h1>
+    <Br />
+
+    <div className='volunteer-holder'>
+      <Br />
+
+      <div className='volunteer-holder-title'><i className='fa fa-camera' /> Volunteer for Recording/Meetups</div>
+      <Br />
 
       <div>Wanna help out at local meetups and learn new stuff? Volunteer here!</div>
+      <Br />
+
     </div>
+
+    <Br />
 
     <Community />
 

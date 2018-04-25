@@ -12,3 +12,8 @@
   grid-template-columns: repeat(3, 200px);
   grid-column-gap: 16px;
   justify-content: center; }
+
+.community-holder-footer {
+  color: var(--gray);
+  font-size: small;
+  text-align: center; }
